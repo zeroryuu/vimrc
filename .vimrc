@@ -1,18 +1,18 @@
 " setting
 if has('vim_starting')
-    set nocompatible
+	set nocompatible
 endif
 
 if !filereadable(expand('~/.vim/autoload/plug.vim'))
-    if !executable("curl")
-        echoerr "You have to install curl or first install vim-plug yourself!"
-        execute "q!"
-    endif
-    echo "Installing Vim-Plug..."
-    echo ""
-    silent !\curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    let g:not_finish_vimplug = "yes"
-    autocmd VimEnter * PlugInstall
+	if !executable("curl")
+		echoerr "You have to install curl or first install vim-plug yourself!"
+		execute "q!"
+	endif
+	echo "Installing Vim-Plug..."
+	echo ""
+	silent !\curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	let g:not_finish_vimplug = "yes"
+	autocmd VimEnter * PlugInstall
 endif
 
 " Plug
@@ -63,11 +63,17 @@ Plug 'davidhalter/jedi-vim'
 Plug 'thinca/vim-quickrun'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
+" auto format
+Plug 'Chiel92/vim-autoformat'
+
+" delete space
+Plug 'bronson/vim-trailing-whitespace'
+
 call plug#end()
 filetype plugin indent on    " required
 
 
-"" auto-format
+" auto-format
 au BufWrite * :Autoformat
 
 "autocmd VimEnter * NERDTree
@@ -81,11 +87,13 @@ let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 30
 let NERDTreeShowHidden=1
 map <F1> :NERDTreeToggle<CR>
+
 autocmd BufWritePre * :FixWhitespace
+
 augroup NERD
-    au!
-    autocmd VimEnter * NERDTree
-    autocmd VimEnter * wincmd p
+	au!
+	autocmd VimEnter * NERDTree
+	autocmd VimEnter * wincmd p
 augroup END
 
 "easy plugin
@@ -121,16 +129,16 @@ autocmd FileType python setlocal completeopt-=preview
 
 "" Remember cursor position
 augroup vimrc-remember-cursor-position
-    autocmd!
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+	autocmd!
+	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
 "" python
 augroup vimrc-python
-    autocmd!
-    autocmd FileType python setlocal
-                \ formatoptions+=croq softtabstop=4
-                \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+	autocmd!
+	autocmd FileType python setlocal
+				\ formatoptions+=croq softtabstop=4
+				\ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 augroup END
 
 
@@ -199,5 +207,10 @@ set ttyfast
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 set mouse=a
 set whichwrap=b,s,h,l,<,>,[,]
+set rtp+=/usr/local/opt/fzf
+
 " snippet
 let g:UltiSnipsSnippetDirectories=["~/vim-snippets/"]
+
+
+
